@@ -1,0 +1,16 @@
+[
+    {
+        "id": "TEAM-01",
+        "name": "Rescue Team Alpha",
+        "status": "AVAILABLE",
+        "latitude": 13.0827,
+        "longitude": 80.2707
+    },
+    {
+        "id": "TEAM-02",
+        "name": "Rescue Team Bravo",
+        "status": "AVAILABLE",
+        "latitude": 13.0878,
+        "longitude": 80.2785
+    }
+]

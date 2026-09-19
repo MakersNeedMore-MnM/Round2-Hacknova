@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ResQLink - Rescue Dashboard</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+</head>
+
+<body>
+
+<header>
+    <h1>ResQLink</h1>
+    <p>Rescue Coordinator Dashboard</p>
+</header>
+
+<main class="dashboard">
+
+    <section class="dashboard-header">
+        <div>
+            <h2>Emergency Operations Center</h2>
+            <p>Monitor active SOS requests and rescue teams.</p>
+        </div>
+
+        <button
+            id="refreshButton"
+            onclick="loadDashboard()"
+        >
+            Refresh
+        </button>
+    </section>
+
+    <section class="stats">
+
+        <div class="stat-card">
+            <h3 id="totalIncidents">0</h3>
+            <p>Active Incidents</p>
+        </div>
+
+        <div class="stat-card">
+            <h3 id="criticalIncidents">0</h3>
+            <p>Critical</p>
+        </div>
+
+        <div class="stat-card">
+            <h3 id="highIncidents">0</h3>
+            <p>High Priority</p>
+        </div>
+
+        <div class="stat-card">
+            <h3 id="availableTeams">0</h3>
+            <p>Available Teams</p>
+        </div>
+
+    </section>
+
+    <section class="dashboard-section">
+
+        <div class="section-title">
+            <div>
+                <h2>Emergency Map</h2>
+                <p>Live locations of survivors and rescue teams.</p>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="map-legend">
+
+            <div class="legend-item">
+                <span class="legend-marker survivor-marker"></span>
+                SOS / Survivor
+            </div>
+
+            <div class="legend-item">
+                <span class="legend-marker team-marker"></span>
+                Rescue Team
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="dashboard-section">
+
+        <h2>Active Emergency Cases</h2>
+
+        <div id="incidentList">
+            Loading incidents...
+        </div>
+
+    </section>
+
+    <section class="dashboard-section">
+
+        <h2>Rescue Teams</h2>
+
+        <div id="teamList">
+            Loading rescue teams...
+        </div>
+
+    </section>
+
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="/js/dashboard.js"></script>
+
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("/sw.js")
+                .then(() => {
+                    console.log(
+                        "ResQLink Service Worker registered."
+                    );
+                })
+                .catch(error => {
+                    console.error(
+                        "Service Worker registration failed:",
+                        error
+                    );
+                });
+        });
+    }
+</script>
+
+</body>
+</html>

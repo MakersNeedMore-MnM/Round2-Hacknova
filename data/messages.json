@@ -1,0 +1,30 @@
+[
+    {
+        "id": "681a66c2-7952-4bb6-b9fb-850a4ce3bdf8",
+        "incident_id": "4419155b-671e-407b-9797-4cab43c4b06c",
+        "sender": "RESCUE_TEAM",
+        "message": "Rescue team has received your SOS. Please remain at your current location.",
+        "timestamp": "2026-09-19T05:49:18.304891"
+    },
+    {
+        "id": "c8b96c85-c86d-4371-8151-fe46b9260965",
+        "incident_id": "f692b088-7c00-4a6e-971a-1f96b29c9c24",
+        "sender": "RESCUE_TEAM",
+        "message": "Rescue team has received your SOS. Please remain at your current location.",
+        "timestamp": "2026-09-19T05:49:33.673956"
+    },
+    {
+        "id": "48bec222-e003-40fc-ab6c-00916b1c1d4e",
+        "incident_id": "46674700-924d-4fa3-bbe5-ebec7f18be8a",
+        "sender": "SURVIVOR",
+        "message": "received",
+        "timestamp": "2026-09-19T05:53:08.327162"
+    },
+    {
+        "id": "96424d9f-bfb9-4395-beea-5c65ec8d7480",
+        "incident_id": "ed7c5e4c-0b6e-445a-b825-6bea99065b25",
+        "sender": "SURVIVOR",
+        "message": "recieved",
+        "timestamp": "2026-09-19T05:59:09.193457"
+    }
+]

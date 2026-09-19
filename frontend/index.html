@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ResQLink - Emergency Response
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>
+        ResQLink
+    </h1>
+
+    <p>
+        Offline-First Emergency Response
+    </p>
+
+</header>
+
+
+<main>
+
+    <p
+        id="offlineStatus"
+        class="offline-status"
+    >
+        Checking connection...
+    </p>
+
+
+    <section class="emergency-card">
+
+        <h2>
+            Emergency SOS
+        </h2>
+
+        <p>
+            Send your location and emergency information
+            to nearby rescue teams.
+        </p>
+
+
+        <label>
+            Your Name
+        </label>
+
+        <input
+            id="name"
+            type="text"
+            placeholder="Enter your name"
+        >
+
+
+        <label>
+            Injury Severity
+        </label>
+
+        <input
+            id="injury"
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="0.5"
+        >
+
+
+        <label>
+            Situation
+        </label>
+
+        <textarea
+            id="description"
+            placeholder="Describe your emergency"
+        ></textarea>
+
+
+        <div class="location-options">
+
+            <h3>
+                Emergency Location
+            </h3>
+
+            <p id="locationInfo">
+                No location selected.
+            </p>
+
+
+            <button
+                type="button"
+                id="useLastLocationButton"
+            >
+                USE LAST SAVED LOCATION
+            </button>
+
+
+            <button
+                type="button"
+                id="manualLocationButton"
+            >
+                ENTER LOCATION MANUALLY
+            </button>
+
+
+            <div
+                id="manualLocationForm"
+                style="display: none;"
+            >
+
+                <label>
+                    Latitude
+                </label>
+
+                <input
+                    id="manualLatitude"
+                    type="number"
+                    step="any"
+                    placeholder="Example: 13.0827"
+                >
+
+
+                <label>
+                    Longitude
+                </label>
+
+                <input
+                    id="manualLongitude"
+                    type="number"
+                    step="any"
+                    placeholder="Example: 80.2707"
+                >
+
+
+                <button
+                    type="button"
+                    id="saveManualLocationButton"
+                >
+                    SAVE LOCATION
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="sosButton"
+        >
+            SEND SOS
+        </button>
+
+
+        <p id="status"></p>
+
+    </section>
+
+
+    <section
+        id="communicationCard"
+        class="communication-card"
+        style="display: none;"
+    >
+
+        <h2>
+            Emergency Communication
+        </h2>
+
+
+        <p id="incident
