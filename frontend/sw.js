@@ -1,58 +1,64 @@
-const CACHE_NAME = "resqlink-v1";
+const CACHE_NAME = "resqlink-v2";
 
 const APP_SHELL = [
     "/",
     "/dashboard",
     "/css/style.css",
     "/js/api.js",
+    "/js/app.js",
     "/js/gps.js",
     "/js/offline.js",
     "/js/sos.js",
     "/js/dashboard.js"
 ];
 
-
 self.addEventListener(
     "install",
     event => {
-
         console.log(
             "ResQLink Service Worker installing..."
         );
 
         event.waitUntil(
-            caches.open(
-                CACHE_NAME
-            ).then(
-                cache => {
-
-                    return cache.addAll(
-                        APP_SHELL
+            caches
+                .open(CACHE_NAME)
+                .then(cache => {
+                    return Promise.all(
+                        APP_SHELL.map(
+                            url => {
+                                return cache
+                                    .add(url)
+                                    .catch(
+                                        error => {
+                                            console.warn(
+                                                "Could not cache:",
+                                                url,
+                                                error
+                                            );
+                                        }
+                                    );
+                            }
+                        )
                     );
-                }
-            )
+                })
         );
 
         self.skipWaiting();
     }
 );
 
-
 self.addEventListener(
     "activate",
     event => {
-
         console.log(
             "ResQLink Service Worker activated."
         );
 
         event.waitUntil(
-
-            caches.keys().then(
-                cacheNames => {
-
+            caches
+                .keys()
+                .then(cacheNames => {
                     return Promise.all(
-
                         cacheNames
                             .filter(
                                 cacheName =>
@@ -66,29 +72,18 @@ self.addEventListener(
                                     )
                             )
                     );
-                }
-            )
+                })
         );
 
         self.clients.claim();
     }
 );
 
-
 self.addEventListener(
     "fetch",
     event => {
-
         const request =
             event.request;
-
-
-        /*
-         * Only handle GET requests.
-         *
-         * POST requests such as SOS
-         * continue going to the backend.
-         */
 
         if (
             request.method !== "GET"
@@ -96,45 +91,34 @@ self.addEventListener(
             return;
         }
 
-
         event.respondWith(
-
             fetch(request)
-                .then(
-                    response => {
-
-                        /*
-                         * Save successful responses
-                         * in the cache.
-                         */
-
+                .then(response => {
+                    if (
+                        response &&
+                        response.status === 200
+                    ) {
                         const responseClone =
                             response.clone();
 
-                        caches.open(
-                            CACHE_NAME
-                        ).then(
-                            cache => {
-
-                                cache.put(
-                                    request,
-                                    responseClone
-                                );
-                            }
-                        );
-
-                        return response;
+                        caches
+                            .open(
+                                CACHE_NAME
+                            )
+                            .then(
+                                cache => {
+                                    cache.put(
+                                        request,
+                                        responseClone
+                                    );
+                                }
+                            );
                     }
-                )
+
+                    return response;
+                })
                 .catch(
                     async () => {
-
-                        /*
-                         * Network unavailable.
-                         *
-                         * Return the cached version.
-                         */
-
                         const cachedResponse =
                             await caches.match(
                                 request
@@ -143,16 +127,8 @@ self.addEventListener(
                         if (
                             cachedResponse
                         ) {
-
                             return cachedResponse;
                         }
-
-
-                        /*
-                         * If nothing is cached,
-                         * return a simple offline
-                         * response.
-                         */
 
                         return new Response(
                             "ResQLink is currently offline.",
