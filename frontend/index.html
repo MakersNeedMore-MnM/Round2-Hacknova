@@ -21,7 +21,6 @@
 
 </head>
 
-
 <body>
 
 <header>
@@ -36,7 +35,6 @@
 
 </header>
 
-
 <main>
 
     <p
@@ -45,7 +43,6 @@
     >
         Checking connection...
     </p>
-
 
     <section class="emergency-card">
 
@@ -58,7 +55,6 @@
             to nearby rescue teams.
         </p>
 
-
         <label>
             Your Name
         </label>
@@ -68,7 +64,6 @@
             type="text"
             placeholder="Enter your name"
         >
-
 
         <label>
             Injury Severity
@@ -83,7 +78,6 @@
             value="0.5"
         >
 
-
         <label>
             Situation
         </label>
@@ -92,7 +86,6 @@
             id="description"
             placeholder="Describe your emergency"
         ></textarea>
-
 
         <div class="location-options">
 
@@ -104,7 +97,6 @@
                 No location selected.
             </p>
 
-
             <button
                 type="button"
                 id="useLastLocationButton"
@@ -112,14 +104,12 @@
                 USE LAST SAVED LOCATION
             </button>
 
-
             <button
                 type="button"
                 id="manualLocationButton"
             >
                 ENTER LOCATION MANUALLY
             </button>
-
 
             <div
                 id="manualLocationForm"
@@ -137,7 +127,6 @@
                     placeholder="Example: 13.0827"
                 >
 
-
                 <label>
                     Longitude
                 </label>
@@ -148,7 +137,6 @@
                     step="any"
                     placeholder="Example: 80.2707"
                 >
-
 
                 <button
                     type="button"
@@ -161,18 +149,15 @@
 
         </div>
 
-
         <button
             id="sosButton"
         >
             SEND SOS
         </button>
 
-
         <p id="status"></p>
 
     </section>
-
 
     <section
         id="communicationCard"
@@ -184,5 +169,73 @@
             Emergency Communication
         </h2>
 
+        <p id="incidentInfo"></p>
 
-        <p id="incident
+        <div
+            id="survivorMessages"
+            class="survivor-messages"
+        >
+            No messages yet.
+        </div>
+
+        <div class="survivor-message-input">
+
+            <textarea
+                id="survivorMessage"
+                placeholder="Reply to the rescue team..."
+                rows="3"
+            ></textarea>
+
+            <button
+                id="sendReplyButton"
+            >
+                SEND REPLY
+            </button>
+
+        </div>
+
+        <p id="messageStatus"></p>
+
+    </section>
+
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/gps.js"></script>
+<script src="js/offline.js"></script>
+<script src="js/sos.js"></script>
+
+<script>
+    if ("serviceWorker" in navigator) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker
+                    .register("/sw.js")
+                    .then(
+                        () => {
+                            console.log(
+                                "ResQLink Service Worker registered."
+                            );
+                        }
+                    )
+                    .catch(
+                        error => {
+                            console.error(
+                                "Service Worker registration failed:",
+                                error
+                            );
+                        }
+                    );
+
+            }
+        );
+
+    }
+</script>
+
+</body>
+
+</html>
