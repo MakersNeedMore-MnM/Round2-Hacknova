@@ -2,74 +2,278 @@
 Repository for team Hacknova for Round 2
 # ResQLink
 
-Offline-First Emergency Response System
+# ResQLink — Offline-First Emergency Response System
 
-## Problem
+ResQLink is an emergency response platform designed to help survivors send SOS alerts, share their location, communicate with rescue teams, and continue emergency operations when network connectivity is temporarily unavailable.
 
-Disasters can destroy cellular and internet infrastructure,
-making conventional emergency communication unavailable.
+## Live Demo
 
-## Solution
+**Main Application:**  
+https://resqlink-863e.onrender.com
 
-ResQLink provides:
+**Rescue Dashboard:**  
+https://resqlink-863e.onrender.com/dashboard
 
-- Offline SOS
-- GPS location
-- Emergency prioritization
-- Mesh communication
-- Rescue team coordination
-- Two-way messaging
-- Offline-first operation
+## Key Features
 
-## Architecture
+### Emergency SOS
 
-Survivor
-   ↓
-SOS
-   ↓
-Priority Engine
-   ↓
-Mesh Network
-   ↓
-Rescue Team
-   ↓
-Coordinator Dashboard
+- One-click emergency SOS submission
+- Survivor name and emergency description
+- Injury severity input
+- Automatic emergency priority calculation
+- Incident status tracking
 
-## Features
+### Location Intelligence
 
-### SOS
-One-tap emergency request.
+- Browser GPS location
+- Last saved location
+- Manual latitude and longitude entry
+- Location displayed with emergency incidents on the rescue dashboard
 
-### GPS
-Captures survivor location.
+### Emergency Prioritization
 
-### AI
-Ranks emergencies based on severity,
-accessibility, resources and waiting time.
+The system calculates an emergency priority score using:
 
-### Mesh
-Simulates peer-to-peer communication.
+- Injury severity
+- Location accessibility
+- Resource urgency
+- Waiting time
 
-### Dashboard
-Displays active emergencies and rescue teams.
+Priority levels:
 
-## Running
+- LOW
+- MEDIUM
+- HIGH
+- CRITICAL
 
-Install dependencies.
+The current MVP uses a transparent rule-based priority engine.
 
-Run Flask.
+### Offline-First SOS
 
-Open the application in the browser.
+When the device loses connectivity:
+
+- SOS information is stored locally
+- The survivor can continue using the emergency interface
+- Queued SOS requests are automatically synchronized when connectivity returns
+- The synchronized incident becomes visible on the rescue dashboard
+
+### Rescue Dashboard
+
+Rescue teams can:
+
+- View active emergency incidents
+- View incident priority
+- View survivor locations
+- View available rescue teams
+- Monitor emergency cases
+- View incidents and teams on the map
+
+### Two-Way Communication
+
+The system supports communication between:
+
+**Survivor → Rescue Team**
+
+and
+
+**Rescue Team → Survivor**
+
+Messages are associated with the corresponding emergency incident.
+
+## Technology Stack
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+- Leaflet.js
+- Browser Geolocation API
+- Service Worker
+- Local Storage
+
+### Backend
+
+- Python
+- Flask
+- Gunicorn
+- JSON-based data storage
+
+### Testing
+
+- Pytest
+
+### Deployment
+
+- GitHub
+- Render
 
 ## Project Structure
 
-...
+    Round2-Hacknova/
+    │
+    ├── ai/
+    │
+    ├── backend/
+    │   ├── app.py
+    │   ├── routes/
+    │   └── services/
+    │
+    ├── data/
+    │   ├── incidents.json
+    │   ├── messages.json
+    │   └── teams.json
+    │
+    ├── docs/
+    │
+    ├── frontend/
+    │   ├── css/
+    │   ├── js/
+    │   ├── index.html
+    │   ├── dashboard.html
+    │   └── sw.js
+    │
+    ├── mesh/
+    │
+    ├── tests/
+    │
+    ├── .gitignore
+    ├── LICENSE
+    ├── README.md
+    └── requirements.txt
 
-## Future Improvements
+## How the System Works
 
-- Bluetooth/Wi-Fi Direct mesh
-- Real offline maps
-- Mobile application
-- IoT sensors
-- Advanced ML model
-- End-to-end encryption
+    Survivor
+       │
+       ▼
+    Emergency SOS
+       │
+       ├── GPS / Manual Location
+       │
+       ▼
+    Priority Engine
+       │
+       ├── Injury Severity
+       ├── Accessibility
+       ├── Resource Urgency
+       └── Waiting Time
+       │
+       ▼
+    Emergency Incident
+       │
+       ├──────────────► Rescue Dashboard
+       │                       │
+       │                       ▼
+       │                 Rescue Team
+       │                       │
+       ◄───────────────────────┘
+       │
+       ▼
+    Two-Way Communication
+
+## Offline Workflow
+
+    Network Available
+           │
+           ▼
+         Send SOS
+           │
+           ▼
+       Backend API
+           │
+           ▼
+    Rescue Dashboard
+
+
+    Network Unavailable
+           │
+           ▼
+         Send SOS
+           │
+           ▼
+     Local Storage Queue
+           │
+           ▼
+    Connection Restored
+           │
+           ▼
+    Automatic Synchronization
+           │
+           ▼
+     Rescue Dashboard
+
+## Running Locally
+
+Clone the repository:
+
+    git clone https://github.com/MakersNeedMore-MnM/Round2-Hacknova.git
+
+Move into the project:
+
+    cd Round2-Hacknova
+
+Create the virtual environment:
+
+    python -m venv .venv
+
+Activate it on Windows PowerShell:
+
+    .venv\Scripts\Activate.ps1
+
+Install dependencies:
+
+    pip install -r requirements.txt
+
+Start the Flask application:
+
+    python backend/app.py
+
+Open the application:
+
+    http://127.0.0.1:5000/
+
+Open the dashboard:
+
+    http://127.0.0.1:5000/dashboard
+
+## Testing
+
+Run:
+
+    pytest
+
+## Implemented MVP
+
+The current working MVP demonstrates:
+
+- Emergency SOS
+- GPS/manual location
+- Emergency priority calculation
+- Rescue dashboard
+- Incident mapping
+- Rescue-team communication
+- Survivor communication
+- Offline SOS storage
+- Automatic synchronization after reconnection
+- Service Worker-based application caching
+- Public web deployment
+
+## Future Enhancements
+
+The following are planned extensions rather than fully implemented MVP functionality:
+
+- Real Bluetooth/Wi-Fi Direct mesh networking
+- Production-grade peer-to-peer communication
+- Trained machine-learning emergency prioritization model
+- On-device AI inference
+- Fully offline map tiles
+- Persistent production database
+- Hardware SOS beacon integration
+- IoT sensor integration
+- Advanced route optimization
+
+## Project Goal
+
+ResQLink aims to reduce communication delays during emergencies by providing an offline-first
